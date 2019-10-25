@@ -1,7 +1,6 @@
 REM Dev by Joseph "RoxxorXx" Cabanis /-\ Créajeux 2019
 REM v.1.0.2
-REM last update 30/09
-
+REM last update 25/10
 @ECHO OFF
 CLS
 GOTO dev
