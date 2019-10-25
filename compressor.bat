@@ -60,14 +60,14 @@ GOTO backConf
 
 REM .exe part
 :prod
-mkdir .\exe
-copy .\*.love .\exe
-copy "C:\Program Files\LOVE\*" .\exe
-del .\exe\changes.txt, .\exe\game.ico, .\exe\license.txt, .\exe\love.ico, .\exe\readme.txt, .\exe\Uninstall.exe
-copy /b .\exe\love.exe+.\exe\*.love .\exe\game.exe
+mkdir .\%CurrDirName%
+copy .\*.love .\%CurrDirName%
+copy "C:\Program Files\LOVE\*" .\%CurrDirName%
+del .\%CurrDirName%\changes.txt, .\%CurrDirName%\game.ico, .\%CurrDirName%\license.txt, .\%CurrDirName%\love.ico, .\%CurrDirName%\readme.txt, .\%CurrDirName%\Uninstall.exe
+copy /b .\%CurrDirName%\love.exe+.\%CurrDirName%\*.love .\%CurrDirName%\%CurrDirName%.exe
 del ".\exe\love.exe", ".\exe\lovec.exe", ".\exe\*.love"
-"C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" "./exe/*"
-rmdir /Q /S .\exe
+"C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%"
+rmdir /Q /S .\%CurrDirName%
 DEL %CurrDirName%.love
 
 :end
