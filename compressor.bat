@@ -65,8 +65,15 @@ copy .\*.love .\%CurrDirName%
 copy "C:\Program Files\LOVE\*" .\%CurrDirName%
 del .\%CurrDirName%\changes.txt, .\%CurrDirName%\game.ico, .\%CurrDirName%\license.txt, .\%CurrDirName%\love.ico, .\%CurrDirName%\readme.txt, .\%CurrDirName%\Uninstall.exe
 copy /b .\%CurrDirName%\love.exe+.\%CurrDirName%\*.love .\%CurrDirName%\%CurrDirName%.exe
+
 del ".\%CurrDirName%\love.exe", ".\%CurrDirName%\lovec.exe", ".\%CurrDirName%\*.love"
-"C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%"
+IF EXIST ReadMe.txt (
+    "C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%" ".\ReadMe.txt"
+
+    REM copy .\ReadMe.txt .\%CurrDirName%\
+) ELSE (
+    "C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%"
+)
 rmdir /Q /S .\%CurrDirName%
 DEL %CurrDirName%.love
 
