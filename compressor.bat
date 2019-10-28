@@ -1,19 +1,39 @@
 REM Dev by Joseph "RoxxorXx" Cabanis /-\ Créajeux 2019
-REM v.1.0.2
-REM last update 25/10
+REM v.1.2.0
+REM last update 28/10/19
 @ECHO OFF
 CLS
-GOTO dev
+
+FOR %%I in (.) do set CurrDirName=%%~nxI
+echo %CurrDirName%
+
+
+
+REM NEEDED TOOLS : LOVE
+IF not EXIST "C:\Program Files\LOVE\love.exe" (
+    ECHO Impossible de localiser Love dans le chemin par defaut
+    pause 
+    REM https://bitbucket.org/rude/love/downloads/love-11.3-win64.zip j'peux le dl ? 
+    GOTO end
+)
 
 :backConf
 CLS
+
 IF EXIST *.compressor.conf (
     IF EXIST dev.compressor.conf (
         ECHO dev
+        IF "%loved%"=="1" (
+            goto end
+        )
+        goto dev
     ) 
     IF EXIST prod.compressor.conf (
+        IF not "%loved%"=="1" (
+           goto dev
+        )
+        goto prod
         ECHO prod
-        GOTO prod
     )
     GOTO end
 ) ELSE (
@@ -38,6 +58,7 @@ IF EXIST *.compressor.conf (
     )    
 )
 
+
 :question
 ECHO Choisisez votre mode de compression : [1].love, [2].exe
 SET /P id=Enter votre selection:
@@ -51,10 +72,13 @@ GOTO check
 
 REM .love part
 :dev
-FOR %%I in (.) do set CurrDirName=%%~nxI
-FOR /f "tokens=3,2,4 delims=/- " %%x in ("%date%") do set d=%%y%%x%%z
-SET data=%d%
-"C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.love" "./*"
+mkdir %CurrDirName%
+robocopy .\ .\%CurrDirName% /E
+del .\%CurrDirName%\compressor.bat .\%CurrDirName%\*compressor.conf
+powershell -Command "Compress-Archive -Path .\%CurrDirName%\* -DestinationPath %CurrDirName%.zip 
+move %CurrDirName%.zip %CurrDirName%.love
+RMDIR /Q/S .\%CurrDirName%
+SET loved=1
 GOTO backConf
 
 REM .exe part
@@ -64,19 +88,17 @@ copy .\*.love .\%CurrDirName%
 copy "C:\Program Files\LOVE\*" .\%CurrDirName%
 del .\%CurrDirName%\changes.txt, .\%CurrDirName%\game.ico, .\%CurrDirName%\license.txt, .\%CurrDirName%\love.ico, .\%CurrDirName%\readme.txt, .\%CurrDirName%\Uninstall.exe
 copy /b .\%CurrDirName%\love.exe+.\%CurrDirName%\*.love .\%CurrDirName%\%CurrDirName%.exe
-
+del .\%CurrDirName%.love
 del ".\%CurrDirName%\love.exe", ".\%CurrDirName%\lovec.exe", ".\%CurrDirName%\*.love"
 IF EXIST ReadMe.txt (
-    "C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%" ".\ReadMe.txt"
-
-    REM copy .\ReadMe.txt .\%CurrDirName%\
-) ELSE (
-    "C:\Program Files\7-Zip\7z.exe" a -tzip "%CurrDirName%.zip" ".\%CurrDirName%"
+    mkdir .\%CurrDirName%\%CurrDirName%
+    move .\%CurrDirName%\* .\%CurrDirName%\%CurrDirName%
+    copy .\ReadMe.txt .\%CurrDirName%\
 )
-rmdir /Q /S .\%CurrDirName%
+powershell -Command "Compress-Archive -Path %CurrDirName% -DestinationPath %CurrDirName%.zip 
+rmdir /Q/S .\%CurrDirName%
 DEL %CurrDirName%.love
 
 :end
 CLS
 ECHO Termine
-REM PAUSE

@@ -1,7 +1,7 @@
 REM Dev by Joseph "RoxxorXx" Cabanis /-\ Créajeux 2019
 REM https://github.com/RoxxorXx/love_utils
-REM v.1.0.0
-REM last update 30/09
+REM v.1.0.1
+REM last update 28/10/19
 
 @ECHO off
 cls
@@ -31,8 +31,8 @@ if errorlevel 1 (
     GOTO makeDir
 ) else (
     cd %projet%
-    mkdir assets
-    mkdir sources
+    mkdir Assets
+    mkdir Sources
     powershell -Command "Invoke-WebRequest https://raw.githubusercontent.com/RoxxorXx/love_utils/master/compressor.bat -OutFile compressor.bat"
     powershell -Command "Invoke-WebRequest https://raw.githubusercontent.com/RoxxorXx/love_utils/master/default_love/main.lua -OutFile main.lua"
     powershell -Command "Invoke-WebRequest https://raw.githubusercontent.com/RoxxorXx/love_utils/master/default_love/conf.lua -OutFile conf.lua"
