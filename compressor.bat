@@ -22,7 +22,7 @@ CLS
 
 IF EXIST *.compressor.conf (
     IF EXIST dev.compressor.conf (
-        ECHO dev
+        REM ECHO dev
         IF "%loved%"=="1" (
             goto end
         )
@@ -33,7 +33,7 @@ IF EXIST *.compressor.conf (
            goto dev
         )
         goto prod
-        ECHO prod
+        REM ECHO prod
     )
     GOTO end
 ) ELSE (
@@ -73,9 +73,9 @@ GOTO check
 REM .love part
 :dev
 mkdir %CurrDirName%
-robocopy .\ .\%CurrDirName% /E
+robocopy .\ .\%CurrDirName% /E >NUL
 del .\%CurrDirName%\compressor.bat .\%CurrDirName%\*compressor.conf
-powershell -Command "Compress-Archive -Path .\%CurrDirName%\* -DestinationPath %CurrDirName%.zip 
+powershell -Command "Compress-Archive -Path .\%CurrDirName%\* -DestinationPath %CurrDirName%.zip" 
 move %CurrDirName%.zip %CurrDirName%.love
 RMDIR /Q/S .\%CurrDirName%
 SET loved=1
