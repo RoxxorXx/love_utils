@@ -1,0 +1,19 @@
+﻿<Window x:Class="WpfApp2.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="Ajouter des contrôles" Height="650" Width="456.944" ResizeMode="NoResize">
+    <Grid>
+        <ListBox x:Name="listBox" Margin="10,30,10,0" VerticalAlignment="Top" Height="289"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Choisissez une clé:" VerticalAlignment="Top" Height="16" Width="201"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,391,0,0" TextWrapping="Wrap" Text="Fonction de la clé:" VerticalAlignment="Top" Height="16" Width="201"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" KeyDown="TextBox_KeyDown" TextChanged="TextBox_TextChanged"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,324,0,0" TextWrapping="Wrap" Text="Recherche" VerticalAlignment="Top"/>
+        <TextBox x:Name="fonctionBox" Margin="10,412,10,47" TextWrapping="Wrap" Text="Fonction" AcceptsReturn="True" AcceptsTab="True"/>
+        <Button x:Name="button" Content="Ajouter" Margin="188,0,188,10" VerticalAlignment="Bottom" Click="Button_Click"/>
+
+    </Grid>
+</Window>
