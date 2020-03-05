@@ -1,6 +1,7 @@
-REM Dev by Joseph "RoxxorXx" Cabanis /-\ Créajeux 2019
+REM Dev by Joseph "RoxxorXx" Cabanis /-\ Créajeux 2020
 REM v.1.2.0
-REM last update 28/10/19
+REM last update 05/03/20
+
 @ECHO OFF
 CLS
 
@@ -72,9 +73,10 @@ GOTO check
 
 REM .love part
 :dev
-mkdir %CurrDirName%
-robocopy .\ .\%CurrDirName% /E >NUL
-del .\%CurrDirName%\compressor.bat .\%CurrDirName%\*compressor.conf
+REM mkdir %CurrDirName%
+robocopy .\ .\%CurrDirName% >NUL
+del .\%CurrDirName%\compressor.bat .\%CurrDirName%\*compressor.conf 
+rem .\%CurrDirName%\%CurrDirName%
 powershell -Command "Compress-Archive -Path .\%CurrDirName%\* -DestinationPath %CurrDirName%.zip" 
 move %CurrDirName%.zip %CurrDirName%.love
 RMDIR /Q/S .\%CurrDirName%
@@ -95,7 +97,7 @@ IF EXIST ReadMe.txt (
     move .\%CurrDirName%\* .\%CurrDirName%\%CurrDirName%
     copy .\ReadMe.txt .\%CurrDirName%\
 )
-powershell -Command "Compress-Archive -Path %CurrDirName% -DestinationPath %CurrDirName%.zip 
+powershell -Command "Compress-Archive -Path %CurrDirName% -DestinationPath %CurrDirName%.zip" 
 rmdir /Q/S .\%CurrDirName%
 DEL %CurrDirName%.love
 
